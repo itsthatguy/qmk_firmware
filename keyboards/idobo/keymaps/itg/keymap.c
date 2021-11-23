@@ -16,9 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_steno.h"
 #include "itg.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -42,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_KP_7, KC_KP_8, KC_KP_9, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
   CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_KP_4, KC_KP_5, KC_KP_6, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_KP_1, KC_KP_2, KC_KP_3, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, RSFT_T(KC_ENT), \
-        _______, KC_LGUI, KC_LALT, MO(MED), MO(SYM), KC_SPC,  KC_KP_0, KC_PDOT, KC_PENT, KC_SPC,  MO(SYM), MO(MED), KC_RALT, KC_RGUI, _______ \
+        MO(MED), KC_LGUI, KC_LALT, MO(MED), MO(SYM), KC_SPC,  KC_KP_0, KC_PDOT, KC_PENT, KC_SPC,  MO(SYM), MO(MED), KC_RALT, KC_RGUI, MO(MED) \
  ),
 
 
@@ -88,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  [MED] = LAYOUT_ortho_5x15(
-    _______, TO(QWE), TO(OSX), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   \
+    _______, DF_QWE,  DF_OSX,  _______, _______, _______, _______, _______, KC_SCT1,    _______, _______, _______, _______, _______, RESET,   \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
@@ -117,30 +114,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+          // case VRSN:
+          //     SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+          //     return false;
+          case DF_QWE:
+              set_single_persistent_default_layer(QWE);
+              return false;
+          case DF_OSX:
+              set_single_persistent_default_layer(OSX);
+              return false;
+        }
+    }
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//     if (record->event.pressed) {
-//         switch (keycode) {
-//         case VRSN:
-//             SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-//             return false;
-//         }
-//     }
-//     return true;
-// }
+    return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+}
 
 void matrix_init_user() {
   steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  #ifdef AUDIO_ENABLE
-    if (IS_LAYER_ON_STATE(state, QWE)) {
-      PLAY_SONG(QWERTY_SOUND);
-    }
-    if (IS_LAYER_ON_STATE(state, MAC)) {
-      PLAY_SONG(PLANCK_SOUND);
-    }
-  #endif
-  return state;
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//   #ifdef AUDIO_ENABLE
+//     if (IS_LAYER_ON_STATE(state, QWE)) {
+//       PLAY_SONG(QWERTY_SOUND);
+//     }
+//     if (IS_LAYER_ON_STATE(state, MAC)) {
+//       PLAY_SONG(PLANCK_SOUND);
+//     }
+//   #endif
+//   return state;
+// }
