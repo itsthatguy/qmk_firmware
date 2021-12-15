@@ -7,10 +7,12 @@
 #define SYM 2
 #define MED 3  // media keys
 #define STN 4
+#define FRM 5
 
 enum custom_keycodes {
-    DF_QWE,
-    DF_OSX,
+    LK_QWE = SAFE_RANGE,
+    LK_OSX,
+    SCREENSHOT,
     KC_SCT1,
     KC_SCT2,
     KC_SCT3,
