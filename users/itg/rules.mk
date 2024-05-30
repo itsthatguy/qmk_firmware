@@ -11,4 +11,5 @@ endif
 
 VIRTSER_ENABLE = yes
 FORCE_NKRO = yes
-MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes      # Audio control and System control
+MOUSEKEY_ENABLE = yes
