@@ -15,14 +15,18 @@ static const char * const secrets[] = {
 #endif
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_SCT1: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        send_string_with_delay(secrets[keycode - KC_SCT1], 10);
-      }
-      return false;
-      break;
+  if (!record->event.pressed) {
+    switch (keycode) {
+        case KC_SCT1: // Secrets!  Externally defined strings, not stored in repo
+        case KC_SCT2: // Secrets!  Externally defined strings, not stored in repo
+        case KC_SCT3: // Secrets!  Externally defined strings, not stored in repo
+        case KC_SCT4: // Secrets!  Externally defined strings, not stored in repo
+        case KC_SCT5: // Secrets!  Externally defined strings, not stored in repo
+            clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+            send_string_with_delay(secrets[keycode - KC_SCT1], 10);
+            return false;
+            break;
+    }
   }
   return true;
 }

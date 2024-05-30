@@ -1,0 +1,11 @@
+ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+EXTRAKEY_ENABLE = yes      # Audio control and System control
+FORCE_NKRO = yes
+MOUSEKEY_ENABLE = yes
+OLED_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+RGBLIGHT_ENABLE = no
+# SPLIT_TRANSPORT = custom
+TRI_LAYER_ENABLE = yes
+WPM_ENABLE = yes
