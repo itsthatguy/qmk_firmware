@@ -21,4 +21,4 @@
 // OLED settings
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90
-#define OLED_UPDATE_INTERVAL 50
+// #define OLED_UPDATE_INTERVAL 50
