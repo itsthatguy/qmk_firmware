@@ -6,25 +6,25 @@
 
 #define ____ KC_TRNS
 
-// #define _QWERTY 0
-// #define _GAME 1
-// #define _OSX 2
-// #define _LOWER 3
-// #define _RAISE 4
-// #define _ADJUST 5
 enum itg_layers {
-    _QWERTY,
-    _GAME,
-    _OSX,
+    _QWERTY_WIN,
+    _QWERTY_GAME,
+    _QWERTY_OSX,
+    _COLEMAK_WIN,
+    _COLEMAK_GAME,
+    _COLEMAK_OSX,
     _LOWER,
     _RAISE,
     _ADJUST,
 };
 
 enum custom_keycodes {
-    LK_QWRT = SAFE_RANGE,
-    LK_OSX,
-    LK_GAME,
+    LK_QW = SAFE_RANGE,
+    LK_QG,
+    LK_QO,
+    LK_CW,
+    LK_CG,
+    LK_CO,
     VRSN,
     SCREENSHOT,
     KC_SCT1,

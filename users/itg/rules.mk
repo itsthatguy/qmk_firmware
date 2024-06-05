@@ -9,7 +9,7 @@ ifeq ($(strip $(NO_SECRETS)), yes)
   OPT_DEFS += -DNO_SECRETS
 endif
 
-VIRTSER_ENABLE = yes
+# VIRTSER_ENABLE = yes
 FORCE_NKRO = yes
 EXTRAKEY_ENABLE = yes      # Audio control and System control
 MOUSEKEY_ENABLE = yes

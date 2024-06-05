@@ -54,11 +54,6 @@
 // Function to get the current layer name
 const char* get_layer_name(uint8_t layer) {
     switch (layer) {
-        case _QWERTY:
-        case _GAME:
-        case _OSX:
-            return "";
-            break;
         case _RAISE:
             static char const layer_name_raise[] PROGMEM = {0x81, 0};
             return layer_name_raise;
@@ -69,7 +64,7 @@ const char* get_layer_name(uint8_t layer) {
             static char const layer_name_adjust[] PROGMEM = {0x83, 0};
             return layer_name_adjust;
         default:
-            return "Undefined";
+            return "";
     }
 }
 
@@ -117,19 +112,38 @@ void write_icon_to_oled(const char* icon, uint8_t x, uint8_t y, uint8_t w, uint8
     }
 }
 
+const void render_keyboard_layout(void) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY_WIN:
+        case _QWERTY_GAME:
+        case _QWERTY_OSX:
+            oled_write_P(PSTR("QWE"), false);
+            break;
+        case _COLEMAK_WIN:
+        case _COLEMAK_GAME:
+        case _COLEMAK_OSX:
+            oled_write_P(PSTR("COL"), false);
+            break;
+    }
+}
+
 // Function to get the default layer icons
 const void render_default_layer_icon(void) {
     const char* icon = "";
 
+    oled_set_cursor(0, 0);
     switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
+        case _QWERTY_WIN:
+        case _COLEMAK_WIN:
             icon = (const char*)win_icon;
             break;
-        case _OSX:
-            icon = (const char*)osx_icon;
-            break;
-        case _GAME:
+        case _QWERTY_GAME:
+        case _COLEMAK_GAME:
             icon = (const char*)nix_icon;
+            break;
+        case _QWERTY_OSX:
+        case _COLEMAK_OSX:
+            icon = (const char*)osx_icon;
             break;
     }
 
@@ -167,8 +181,9 @@ const void render_wpm(void) {
 static void render_status(void) {
     // Write the icons to the OLED
     render_default_layer_icon();
+    render_keyboard_layout();
     render_tri_layer_icon();
-    render_wpm();
+    // render_wpm();
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
