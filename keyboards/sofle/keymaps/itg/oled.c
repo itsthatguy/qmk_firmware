@@ -24,7 +24,7 @@
 #define FAST_TYPE_WPM 45 //Switch to fast animation when over words per minute
 
 #include "itg.h"
-#include "animation/crab.c"
+#include "animation/demon.c"
 
 // #include "oled_driver.h"
 

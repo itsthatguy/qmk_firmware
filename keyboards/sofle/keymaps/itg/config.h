@@ -3,7 +3,7 @@
 
 #pragma once
 
-#define FORCE_NKRO
+// #define FORCE_NKRO
 
 #define TRI_LAYER_LOWER_LAYER 3
 #define TRI_LAYER_UPPER_LAYER 4
