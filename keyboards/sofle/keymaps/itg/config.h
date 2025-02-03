@@ -72,3 +72,9 @@
 #define DISABLE_RGB_MATRIX_MULTISPLASH
 #define DISABLE_RGB_MATRIX_SOLID_SPLASH
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+// Disabled to save space
+// #define NO_ACTION_ONESHOT  // 332
+// #define NO_ACTION_MACRO    // 0
+// #define NO_ACTION_FUNCTION // 0
+// #define DISABLE_LEADER     // 0
